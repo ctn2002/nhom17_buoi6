@@ -28,6 +28,13 @@ public class ProductService {
     public void save(Product product) {
         productRepository.save(product);
     }
+    
+    public void saveWithoutImage(int id, String name, int price){
+        Product product = productRepository.getById(id);
+        product.setName(name);
+        product.setPrice(price);
+        productRepository.save(product);
+    }
 
     public void delete(int id) {
         productRepository.deleteById(id);
