@@ -81,15 +81,16 @@ public class ProductController {
                 Files.write(path, bytes);
                 Files.copy(imageProduct.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
                 product.setImage(newImageFile);
+                productService.save(product);
             }catch(Exception ex){
                 ex.printStackTrace();
             }
-        }
-        productService.save(product);
+        }else{
+            productService.saveWithoutImage(product.getId(), product.getName(), product.getPrice());
 
+        }
         return "redirect:/products";
     }
-
     @RequestMapping("/delete/{id}")
     public String deleteProduct(@PathVariable(name = "id") int id) {
         productService.delete(id);
